@@ -678,11 +678,12 @@ const ProjectsData = [
   },
 ];
 
-
 // Group projects by year
 const groupedProjects = ProjectsData.reduce((acc, project) => {
-  acc[project.year] = acc[project.year] || [];
-  acc[project.year].push(project);
+  // Replace spaces in year names with dashes to ensure valid class names
+  const yearKey = project.year.replace(/\s+/g, '-'); // Replaces spaces with dashes
+  acc[yearKey] = acc[yearKey] || [];
+  acc[yearKey].push(project);
   return acc;
 }, {});
 
@@ -692,18 +693,19 @@ const ProjectsDataHTML = Object.keys(groupedProjects)
   .map(
     (year) => `
       <section class="projects-year">
-        <h3><span>${year}</span></h3>
-        <div class="projects-card-container">
+        <h3>
+          <span>${year.replace(/-/g, ' ')}</span> <!-- Replace dashes back to spaces for display -->
+          <button class="toggle-button" onclick="toggleProjects('${year}')">click to see the projects ▶</button>
+        </h3>
+        <div class="projects-card-container ${year}-projects">
           ${groupedProjects[year]
         .map(
           (item) => {
-            // Create an array of logos dynamically
             let logosHTML = '';
             if (item.logo) logosHTML += `<img src="${item.logo}" alt="${item.name} logo" class="project-logo">`;
             if (item.logo2) logosHTML += `<img src="${item.logo2}" alt="${item.name} logo2" class="project-logo">`;
             if (item.logo3) logosHTML += `<img src="${item.logo3}" alt="${item.name} logo3" class="project-logo">`;
 
-            // Create link buttons dynamically
             const linksHTML = `
                   ${item.link ? `<a href="${item.link}" title="${item.name}" target="_blank">View Demo</a>` : ''}
                   ${item.link2 ? `<a href="${item.link2}" title="${item.name} link2" target="_blank">View UI</a>` : ''}
@@ -712,15 +714,15 @@ const ProjectsDataHTML = Object.keys(groupedProjects)
 
             return `
                   <div class="projects-card">
-                  <div>
-                    <h4>${item.name}</h4>
-                  </div>
+                    <div>
+                      <h4>${item.name}</h4>
+                    </div>
                     <div class="project-logos">
                       ${logosHTML}
                     </div>
-                     <div class="project-links">
-                        ${linksHTML}
-                      </div>
+                    <div class="project-links">
+                      ${linksHTML}
+                    </div>
                     <div>
                       <p>${item.description}</p>
                     </div>
@@ -739,3 +741,93 @@ const ProjectsDataHTML = Object.keys(groupedProjects)
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("projects-container").innerHTML = ProjectsDataHTML;
 });
+
+// Function to toggle visibility of the projects list
+function toggleProjects(year) {
+  const projectContainer = document.querySelector(`.${year}-projects`);
+  const toggleButton = projectContainer.previousElementSibling.querySelector('.toggle-button');
+
+  if (projectContainer.classList.contains('visible')) {
+    projectContainer.classList.remove('visible');
+    toggleButton.textContent = 'click to see the projects ▶';  // Change to right arrow when hidden
+  } else {
+    projectContainer.classList.add('visible');
+    toggleButton.textContent = '▼';  // Change to down arrow when shown
+  }
+}
+
+// // Group projects by year
+// const groupedProjects = ProjectsData.reduce((acc, project) => {
+//   acc[project.year] = acc[project.year] || [];
+//   acc[project.year].push(project);
+//   return acc;
+// }, {});
+
+// // Generate HTML for projects grouped by year
+// const ProjectsDataHTML = Object.keys(groupedProjects)
+//   .sort() // Sort years in ascending order
+//   .map(
+//     (year) => `
+//       <section class="projects-year">
+//         <h3>
+//           <span>${year}</span>
+//           <button class="toggle-button" onclick="toggleProjects('${year}')">▶</button>
+//         </h3>
+//         <div class="projects-card-container ${year}-projects">
+//           ${groupedProjects[year]
+//         .map(
+//           (item) => {
+//             let logosHTML = '';
+//             if (item.logo) logosHTML += `<img src="${item.logo}" alt="${item.name} logo" class="project-logo">`;
+//             if (item.logo2) logosHTML += `<img src="${item.logo2}" alt="${item.name} logo2" class="project-logo">`;
+//             if (item.logo3) logosHTML += `<img src="${item.logo3}" alt="${item.name} logo3" class="project-logo">`;
+
+//             const linksHTML = `
+//                   ${item.link ? `<a href="${item.link}" title="${item.name}" target="_blank">View Demo</a>` : ''}
+//                   ${item.link2 ? `<a href="${item.link2}" title="${item.name} link2" target="_blank">View UI</a>` : ''}
+//                   ${item.link3 ? `<a href="${item.link3}" title="${item.name} link3" target="_blank">Git</a>` : ''}
+//                 `;
+
+//             return `
+//                   <div class="projects-card">
+//                     <div>
+//                       <h4>${item.name}</h4>
+//                     </div>
+//                     <div class="project-logos">
+//                       ${logosHTML}
+//                     </div>
+//                     <div class="project-links">
+//                       ${linksHTML}
+//                     </div>
+//                     <div>
+//                       <p>${item.description}</p>
+//                     </div>
+//                   </div>
+//                 `;
+//           }
+//         )
+//         .join("")}
+//         </div>
+//       </section>
+//     `
+//   )
+//   .join("");
+
+
+// // Insert the generated HTML into the DOM
+// document.addEventListener("DOMContentLoaded", () => {
+//   document.getElementById("projects-container").innerHTML = ProjectsDataHTML;
+// });
+
+// function toggleProjects(year) {
+//   const projectContainer = document.querySelector(`.${year}-projects`);
+//   const toggleButton = projectContainer.previousElementSibling.querySelector('.toggle-button');
+
+//   if (projectContainer.classList.contains('visible')) {
+//     projectContainer.classList.remove('visible');
+//     toggleButton.textContent = '▶';  // Change to right arrow when hidden
+//   } else {
+//     projectContainer.classList.add('visible');
+//     toggleButton.textContent = '▼';  // Change to down arrow when shown
+//   }
+// }

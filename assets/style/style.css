@@ -374,11 +374,15 @@ main #projects-section .projects-year {
   border: none;
   outline: none;
 }
+
 /* Style for project links to display them in a row */
 .project-links {
-  display: flex; /* Use flexbox to display links inline */
-  gap: 10px; /* Space between links */
-  margin-top: 5px; /* Add some spacing above the links */
+  display: flex;
+  /* Use flexbox to display links inline */
+  gap: 10px;
+  /* Space between links */
+  margin-top: 5px;
+  /* Add some spacing above the links */
 }
 
 .project-links a {
@@ -391,7 +395,8 @@ main #projects-section .projects-year {
 }
 
 .project-links a:hover {
-  background-color: var(--color-primary-dark); /* Darker hover color */
+  background-color: var(--color-primary-dark);
+  /* Darker hover color */
 }
 
 main #projects-section .projects-year:last-child {
@@ -400,9 +405,11 @@ main #projects-section .projects-year:last-child {
 }
 
 main #projects-section .projects-year .projects-card-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, auto));
-  gap: 12px;
+  gap: 12px; */
+  display: none;
+  /* Hide projects by default */
 }
 
 main #projects-section .projects-card-container .projects-card {
@@ -418,19 +425,24 @@ main #projects-section .projects-card-container .projects-card img {
   width: 100%;
   margin-bottom: 12px;
 }
+
 /* Style for project logos - stack vertically */
 /* Style for project logos stacked vertically */
 .project-logos {
   display: flex;
-  flex-direction: column; /* Stack logos vertically */
-  gap: 10px; /* Space between logos */
+  flex-direction: column;
+  /* Stack logos vertically */
+  gap: 10px;
+  /* Space between logos */
   margin-bottom: 10px;
 }
 
 .project-logos img {
-  height: 50px; /* Set a fixed height for logos */
+  height: 50px;
+  /* Set a fixed height for logos */
   width: auto;
-  border-radius: 8px; /* Optional: round the corners of the logos */
+  border-radius: 8px;
+  /* Optional: round the corners of the logos */
 }
 
 
@@ -446,6 +458,7 @@ main #projects-section .projects-card-container .projects-card img {
   list-style-type: disc;
   color: var(--color-text-gray);
 }
+
 .project-description1-p {
   font-size: 17px;
   line-height: 1.6;
@@ -476,6 +489,30 @@ main #projects-section .projects-card-container .projects-card a {
 main #projects-section .projects-card-container .projects-card a:hover {
   background-color: var(--color-primary);
   cursor: pointer;
+}
+
+main #projects-section .projects-card-container.visible {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, auto));
+  gap: 12px;
+  
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.toggle-button:focus {
+  outline: none;
+}
+
+.projects-year h3 {
+  display: flex;
+  align-items: center;
 }
 
 
