@@ -112,10 +112,10 @@ header nav ul li a:hover {
 
 
 /*--------------------------------------------------------------
-  # MAin,Hero section
+  # Main,Hero section
   --------------------------------------------------------------*/
 main #hero-section {
-  min-height: 80svh;
+  /* min-height: 80svh; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* Extra small devices (phones, <576px) */
@@ -127,7 +127,7 @@ main #hero-section #hero-left {
   justify-content: center;
   align-items: center;
   text-align: start;
-  line-height: 0%;
+  /* line-height: 0%; */
 }
 
 main #hero-section #hero-left h1 {
@@ -279,7 +279,7 @@ main #hero-section #hero-right img {
 main #about-section {
   max-width: 90%;
   /* margin: auto; */
-  margin-left: 8%;
+  margin: 0 auto;
 }
 
 main #about-section h2 {
